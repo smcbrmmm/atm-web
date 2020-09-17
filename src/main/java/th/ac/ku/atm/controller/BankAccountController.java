@@ -29,7 +29,7 @@ public class BankAccountController {
     public String openBankAccount(@ModelAttribute BankAccount bankAccount, Model model){
         bankAccountService.createBankAccount(bankAccount);
         model.addAttribute("allBankAccounts", bankAccountService.getBankAccounts());
-        System.out.println(bankAccountService.getBankAccounts().toString());
+//        System.out.println(bankAccountService.getBankAccounts().toString());
         return "redirect:bankaccount";
     }
 
