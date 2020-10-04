@@ -3,35 +3,36 @@
       layout:decorate="~{fragments/main_layout}"
       xmlns:th="https://www.thymeleaf.org">
 
-<div layout:fragment="content" class="container">
-    <h1 class="text-center">Open Bank Account</h1>
+<div class="container" layout:fragment="content">
+
+    <h1>Open Bank Account</h1>
     <form th:action="@{/bankaccount}" method="POST">
 
         <div class="form-group">
-            <label for="inputId">Id</label>
-            <input type="input" class="form-control" name="id" id="inputId">
+            <label for="inputCustomer">Customer Id</label>
+            <input type="text" class="form-control" name="customerId" id="inputCustomer">
         </div>
-        <div class="form-group">
-            <label for="inputCustomerId">CustomerId</label>
-            <input type="input" class="form-control" name="customerId" id="inputCustomerId">
-        </div>
+
         <div class="form-group">
             <label for="inputType">Type</label>
-            <input type="input" class="form-control" name="type" id="inputType">
+            <input type="text" class="form-control" name="type" id="inputType">
         </div>
 
         <div class="form-group">
             <label for="inputBalance">Balance</label>
-            <input type="input" class="form-control" name="balance" id="inputBalance">
+            <input type="text" class="form-control" name="balance" id="inputBalance">
         </div>
 
         <div class="form-group">
             <input type="submit" class="btn btn-primary">
         </div>
+
     </form>
     <hr>
 
-    <table class="table table-bordered">
+    <h1>All Bank Accounts</h1>
+
+    <table class="table table-bordered table-striped">
         <thead class="thead-light">
         <tr>
             <th>Id</th>
@@ -41,11 +42,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="bankaccount : ${allBankAccounts}">
-            <td th:text="${bankaccount.getId()}"></td>
-            <td th:text="${bankaccount.getCustomerId()}"></td>
-            <td th:text="${bankaccount.getType()}"></td>
-            <td th:text="${bankaccount.getBalance()}"></td>
+        <tr th:each="account : ${allBankAccounts}">
+            <td th:text="${account.id}"></td>
+            <td th:text="${account.customerId}"></td>
+            <td th:text="${account.type}"></td>
+            <td th:text="${account.balance}"></td>
         </tr>
         </tbody>
     </table>

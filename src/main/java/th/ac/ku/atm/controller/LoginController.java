@@ -17,31 +17,33 @@ public class LoginController {
     private CustomerService customerService;
     private BankAccountService bankAccountService;
 
-    public LoginController(CustomerService customerService,
-                           BankAccountService bankAccountService) {
+    public LoginController(CustomerService customerService, BankAccountService bankAccountService) {
         this.customerService = customerService;
         this.bankAccountService = bankAccountService;
     }
 
-    @GetMapping()
+    @GetMapping
     public String getLoginPage() {
         return "login";
     }
 
     @PostMapping
     public String login(@ModelAttribute Customer customer, Model model) {
-        Customer storedCustomer = customerService.checkPin(customer);
+        // 1. check to see if id and pin matched customer info
+        Customer matchingCustomer = customerService.checkPin(customer);
 
-        if (storedCustomer != null) {
-            model.addAttribute("customertitle",
-                    storedCustomer.getName() + " Bank Accounts");
-            model.addAttribute("bankaccounts",
-                    bankAccountService.getCustomerBankAccounts(customer.getId()));
+        // 2. if match, welcome user
+        if (matchingCustomer != null) {
+            model.addAttribute("greeting", "Welcome, " + matchingCustomer.getName() + " Bank Accounts");
+            model.addAttribute("bankaccounts", bankAccountService.getCustomerBankAccounts(customer.getId()));
+
             return "customeraccount";
         } else {
+            // 3. not match, display that customer info is incorrection
             model.addAttribute("greeting", "Can't find customer");
             return "home";
         }
+
     }
 
 }
