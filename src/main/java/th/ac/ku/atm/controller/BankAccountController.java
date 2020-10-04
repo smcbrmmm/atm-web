@@ -29,6 +29,25 @@ public class BankAccountController {
         return "redirect:bankaccount";
     }
 
+    @GetMapping("/edit/{id}")
+    public String getEditBankAccountPage(@PathVariable int id, Model model) {
+        BankAccount account = bankAccountService.getBankAccount(id);
+        model.addAttribute("bankAccount", account);
+        return "bankaccount-edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editAccount(@PathVariable int id,
+                              @ModelAttribute BankAccount bankAccount,
+                              Model model) {
+
+        bankAccountService.editBankAccount(bankAccount);
+        model.addAttribute("bankaccounts",bankAccountService.getBankAccounts());
+        return "redirect:/bankaccount";
+    }
+
+
+
 
 
 
