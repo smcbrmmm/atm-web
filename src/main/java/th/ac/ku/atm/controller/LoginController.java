@@ -34,7 +34,7 @@ public class LoginController {
 
         // 2. if match, welcome user
         if (matchingCustomer != null) {
-            model.addAttribute("greeting", "Welcome, " + matchingCustomer.getName() + " Bank Accounts");
+            model.addAttribute("customertitle", matchingCustomer.getName() + " Bank Accounts");
             model.addAttribute("bankaccounts", bankAccountService.getCustomerBankAccounts(customer.getId()));
 
             return "customeraccount";
